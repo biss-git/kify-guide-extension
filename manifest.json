@@ -1,0 +1,29 @@
+{
+    "name": "棋譜読みちゃん棋譜共有",
+    "short_name": "kify-guide",
+    "description": "棋譜読みちゃんの棋譜共有用拡張機能です。",
+    "author": "ビス",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "permissions": ["contextMenus", "storage"],
+    "icons": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "background": {
+      "scripts": [
+        "lib/axios.min.js",
+        "lib/gzip.min.js",
+        "js/background.js"
+      ],
+      "presistent": false
+    },
+    "content_scripts": [{
+      "matches": ["http://127.0.0.1/*", "http://localhost/*", "https://biss-git.github.io/kify-guide/*", "https://kify.rei-yumesaki.net/*"],
+      "js": [
+        "js/content.js"
+      ]
+    }]
+}
