@@ -360,13 +360,53 @@ function getKifu(tab){
   });
 }
 
+function allowSite(url){
+  if(url.indexOf('https://kify.rei-yumesaki.net/') != -1){return true;}
+  if(url.indexOf('http://127.0.0.1') != -1){return true;}
+  return false;
+}
 
-chrome.contextMenus.create({
-  title: 'この棋譜の共有リンクを生成する',
-  type: 'normal',
-  contexts: ['all'],
-  onclick: function (info, tab) {
-    getKifu(tab);
+var menuId;
+function showContextMenu(){
+  if(menuId){
+    return;
+  }
+  menuId = chrome.contextMenus.create({
+    title: '棋譜共有リンク発行（棋譜読みちゃん非公式拡張機能）',
+    type: 'normal',
+    contexts: ['all'],
+    onclick: function (info, tab) {
+      getKifu(tab);
+    }
+  });
+}
+function hideContextMenu(){
+  if(menuId){
+    chrome.contextMenus.remove(menuId);
+    menuId = 0;
+  }
+}
+
+function controlContextMenu(url){
+  if(allowSite(url)){
+    showContextMenu();
+  }
+  else{
+    hideContextMenu();
+  }
+}
+
+chrome.tabs.onActiveChanged.addListener(function(id,info){
+  chrome.tabs.get(id,function(tab){
+    url = tab.url;
+    controlContextMenu(url);
+  });
+});
+
+chrome.tabs.onUpdated.addListener(function(id,info,tab){
+  if(tab.active){
+    url = tab.url;
+    controlContextMenu(url);
   }
 });
 
