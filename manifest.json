@@ -3,7 +3,7 @@
     "short_name": "kify-guide",
     "description": "棋譜読みちゃんの棋譜共有用拡張機能です。",
     "author": "ビス",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "manifest_version": 2,
     "permissions": ["tabs", "contextMenus", "storage"],
     "icons": {
