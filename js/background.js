@@ -357,9 +357,26 @@ function getKifu(tab){
     if (response){
       Kif2Csv(response);
     }
+    else{
+      console.log("非対応サイトです。");
+      alert('棋譜共有機能は、棋譜読みちゃんなどの特定のページでのみご利用いただけます。詳細はこちらをご覧ください。 → https://biss-git.github.io/kify-guide/assets/help/help.html')
+    }
   });
 }
 
+
+chrome.contextMenus.create({
+  title: '棋譜共有リンク発行（棋譜読みちゃん非公式拡張機能）',
+  type: 'normal',
+  contexts: ['all'],
+  onclick: function (info, tab) {
+    getKifu(tab);
+  }
+});
+
+
+// 右クリックメニューの切り替え
+/*
 function allowSite(url){
   if(url.indexOf('https://kify.rei-yumesaki.net/') != -1){return true;}
   if(url.indexOf('http://127.0.0.1') != -1){return true;}
@@ -409,4 +426,4 @@ chrome.tabs.onUpdated.addListener(function(id,info,tab){
     controlContextMenu(url);
   }
 });
-
+*/

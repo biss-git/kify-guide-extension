@@ -184,6 +184,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if(inputKifu != null && inputKifu.length > 10){
     sendResponse(inputKifu);
   }
+  else{
+    // 何もないときは何も無いことを返す
+    sendResponse("");
+  }
   return;
 });
 
