@@ -216,19 +216,19 @@ function komaToByte(koma){
   if(koma.indexOf('と') != -1){
     return 8;
   }
-  if(koma.indexOf('成香') != -1){
+  if(koma.indexOf('成香') != -1 || koma.indexOf('杏') != -1){
     return 9;
   }
-  if(koma.indexOf('成桂') != -1){
+  if(koma.indexOf('成桂') != -1 || koma.indexOf('圭') != -1){
     return 10;
   }
-  if(koma.indexOf('成銀') != -1){
+  if(koma.indexOf('成銀') != -1 || koma.indexOf('全') != -1){
     return 11;
   }
   if(koma.indexOf('馬') != -1){
     return 12;
   }
-  if(koma.indexOf('龍') != -1){
+  if(koma.indexOf('龍') != -1 || koma.indexOf('竜') != -1){
     return 13;
   }
 
@@ -237,7 +237,7 @@ function komaToByte(koma){
 
 // 右、左、寄、上、成、打　みたいな文字を検出してbyteに直す
 function posiToByte(move){
-  var lr = 0; // 右または左 2bit
+  var lr = 0; // 右、左、直 2bit
   var tb = 0; // 上、寄、引 2bit
   var pr = 0; // 不成、成、打 2bit
   if(move.indexOf('右') != -1){
@@ -245,6 +245,9 @@ function posiToByte(move){
   }
   else if(move.indexOf('左') != -1){
     lr = 2;
+  }
+  else if(move.indexOf('直') != -1){
+    lr = 3;
   }
   if(move.indexOf('上') != -1){
     tb = 1;

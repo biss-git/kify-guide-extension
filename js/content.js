@@ -38,7 +38,7 @@ function checkKifyGuide(){
 
 function playButtonClkick(){
   console.log('clicked');
-  this.kifu = localStorage.getItem('kifu');
+  this.originalKifu = localStorage.getItem('kifu');
   this.setNumber = localStorage.getItem("kify_setting_now_set_number");
   this.voiceNumber = localStorage.getItem("kify_setting_" + this.setNumber + "_1");
   this.komaotoNumber = localStorage.getItem("kify_setting_" + this.setNumber + "_2");
@@ -54,6 +54,8 @@ function playButtonClkick(){
   this.playButtonNumber = localStorage.getItem("kify_setting_" + this.setNumber + "_14");
   this.selectionNumber = localStorage.getItem("kify_setting_" + this.setNumber + "_16");
   this.logoNumber = localStorage.getItem("kify_setting_" + this.setNumber + "_17");
+  console.log(this.originalKifu);
+  this.kifu = this.modifyKifu(this.originalKifu);
   console.log(this.kifu);
   console.log(this.setNumber);
   console.log(this.voiceNumber);
@@ -88,6 +90,16 @@ function playButtonClkick(){
 
   // window.location.href = 'https://kify.rei-yumesaki.net/input.html'; // 通常の遷移
   window.open('https://kify.rei-yumesaki.net/input.html', '_blank');
+}
+
+// 棋譜読みちゃんが読めない棋譜を修正する
+function modifyKifu(kifu){
+  modifiedKifu = kifu;
+
+  // .kif 形式で詰みという文字があると読めないので、投了に直しておく
+  modifiedKifu = modifiedKifu.replace(/ 詰み/g, ' 投了');
+
+  return modifiedKifu;
 }
 
 // 棋譜読みちゃんのページを開いたときに設定があればそれを入力して再読み込み
